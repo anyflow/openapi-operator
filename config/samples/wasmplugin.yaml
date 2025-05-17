@@ -1,0 +1,22 @@
+apiVersion: extensions.istio.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: path-template-filter-dockebi-test
+  namespace: ns-cluster
+spec:
+  url: anyflow/path-template-filter:0.2.2
+  imagePullPolicy: Always
+  phase: STATS
+  failStrategy: FAIL_OPEN
+  priority: 10
+  selector: #spec.selector를 그대로 사용
+    matchLabels:
+      app: dockebi-test-service
+  pluginConfig:
+    cacheSize: 5
+    services:
+      - name: dockebi-prefix #prefix를 default로 사용하되, 없으면 metadata.name을 사용
+        paths: # spec.openapi를 그대로 사용하되, prefix가 있을 경우 각 path 앞에 /{prefix}를 추가
+          /dockebi-prefix/v1/stuff: {}
+          /dockebi-prefix/v1/stuff/{id_}: {}
+          /dockebi-prefix/v1/stuff/{id_}/child/{child_id}/hello: {}

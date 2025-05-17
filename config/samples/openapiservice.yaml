@@ -1,0 +1,18 @@
+apiVersion: operator.anyflow.net/v1
+kind: OpenapiService
+metadata:
+  labels:
+    app.kubernetes.io/name: openapi-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: dockebi-test
+  namespace: service
+spec:
+  selector:
+    matchLabels:
+      app: dockebi-test-service
+  prefix: dockebi-prefix # WasmPlugin의 각 path의 prefix로 사용됨. e.g. /dockebi-prefix/v1/stuff
+  openapi:
+    paths:
+      /v1/stuff: {}
+      /v1/stuff/{id_}: {}
+      /v1/stuff/{id_}/child/{child_id}/hello: {}

@@ -1,0 +1,4 @@
+## Append samples of your project ##
+resources:
+  - openapiservice.yaml
+# +kubebuilder:scaffold:manifestskustomizesamples
